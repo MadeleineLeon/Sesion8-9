@@ -1,0 +1,51 @@
+#### Ejercicio de clase
+#### N?stor S?nchez 117349
+#### Madeleine Le?n 125154
+
+#Ejercicios 1 y 2
+```{r}
+getwd()
+setwd("/Users/madeleineleon/EstadisticaAplicada1")
+
+```
+
+```{r,warning=FALSE}
+tbl=read.delim("tbl.txt",sep="|")
+tbl$Fecha.DOF=as.character(tbl$Fecha.DOF)
+par(mfrow=c(3,3))
+for(i in 1:9){
+  #tomar las filas cuyos a?os sean 2005+i (2006,...,2014)
+  tcAnual=as.numeric(as.character((tbl[grep(as.character(2005+i),as.character(tbl$Fecha.DOF)),2])))
+  tcAnual = tcAnual[!is.na(tcAnual)]
+  #generar los histogramas
+  hist(tcAnual,col="darkblue",main=as.character(2005+i),breaks = seq(9.9, 15.4, length.out = 30),xlim = c(9.9, 15.4),ylim = c(0, 120),border="white")
+  #a?adir las l?neas de mediana y promedio
+  prom=mean(tcAnual,na.rm=TRUE)
+  med=median(tcAnual,na.rm=TRUE)
+  abline(v=med,col="black",lwd=2)
+  abline(v=prom,col="red",lwd=2)
+}
+```
+#Ejercicio3: Comentar sobre la grafica
+Como las gr??ficas anteriores se encuentran con la misma escala, se puede apreciar el comportamiento en el tipo de cambio por a??o y hacer comparaciones entre los a??os. Se puede apreciar que la media y la dispresi??n (ambas) cambian cada a??o. 
+
+#Ejercicio 4
+```{r}
+tbl=read.delim("tbl.txt",sep="|")
+tbl$Fecha.DOF=as.character(tbl$Fecha.DOF)
+tbl$Fecha.DOF=gsub("^.{6}","",tbl$Fecha.DOF)
+tbl$Fecha.DOF=as.factor(tbl$Fecha.DOF)
+boxplot(formula=as.numeric(TC)~Fecha.DOF,data=tbl,range=0,varwidth=TRUE,border=c("darkblue"))
+```
+## Ejercicio 4: comentar sobre la grafica
+
+En esta gr??fica es m??s f??cil hacer comparaciones en cuanto a la media y la dispersi??n ya tenemos todas la gr??ficas de caja y brazos en la misma figura y tambi??n podemos ver algunas observaciones extremas.
+#Ejercicio 5
+```{r}
+curve(1/sqrt(2*pi)*exp(-x^2/2),from=-4,to=4,n=200,col="red",yaxt="n",ylab="f(x)",xlab="x",main=expression(frac(1,sqrt(2*pi))*e^-frac(x^2,2)))
+axis(side=2,at=c(0,0.1,0.2,0.3,0.4),labels=c(0,0.1,0.2,0.3,0.4),las=1)
+abline(v=0)
+points(0,1/sqrt(2*pi),lwd=5,col="blue")
+text(1,1/sqrt(2*pi),labels="Valor m?ximo")
+```
+
